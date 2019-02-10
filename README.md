@@ -1,2 +1,0 @@
-# whiss-frontend
-frontend react

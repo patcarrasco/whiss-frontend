@@ -1,8 +1,9 @@
 {
-  "name": "whiss-client",
+  "name": "whiss-test",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "actioncable": "^5.2.2",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-scripts": "2.1.3"
