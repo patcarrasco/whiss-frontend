@@ -29,7 +29,7 @@ class App extends React.Component {
 
 
 	handleNewChat = (data) => {
-		
+
 		const parsedData = JSON.parse(data).data.attributes;
 		console.log(parsedData)
 		this.Socket.messageChannel = this.createChannel(this.Socket.consumer, {channel: "MessagesChannel", chat_id: parsedData.id}, this.handleNewMessage);
@@ -91,55 +91,6 @@ class App extends React.Component {
 	deleteChannel = (channel) => {
 		channel.unsubscribe();
 	}
-
-
-
-
-
-
-
-	// sendWhisper = (whisper, whisperChannel) => {
-	// 	// {
-	// 	// 	content: "",
-	// 	// 	user_id: 1,
-	// 	// 	friends: [id1, id2, id3]
-	// 	// }
-	// 	whisperChannel.transmit(whisper);
-	// }
-
-
-
-
-
-
-
-
-
-
-
-
-	// handleMessages = (data) => {
-	// 	console.log(data);
-	// 	// let messages = this.parseSerializedResponse(data);
-	// 	// messages.sort(message => -message.id);
-	// 	// this.setState({messages})
-	// }
-
-	// addMessage = (data) => {
-	// 	let message = this.parseSerializedResponse(data);
-	// 	this.setState({messages: [message, ...this.state.messages]})
-	// }
-
- //  createMessage = () => {
- //  	fetch("http://localhost:3000/api/v1/messages", {
- //  		method: "Post",
- //  		headers: {
- //  			"Content-Type": "application/json",
- //  			Accept: "json"
- //  		},
- //  		body: JSON.stringify({user_id: 1,chat_id: 1, content: "Hello, now the front."})
- //  	});
- //  }
 
   render() {	
 	  return (
