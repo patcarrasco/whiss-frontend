@@ -7,9 +7,8 @@ export default class SignIn extends React.PureComponent {
         return (
             <View>
                 <View style={styles.SignInForm}>
-                    <TextInput style={styles.inputs} name='username' value={this.props.username} onChange={(e) => this.props.inputHandler('username', e)} placeholder="username" placeholderTextColor='gray'
- />
-                    <TextInput style={styles.inputs} secureTextEntry={true} name='password' onChange={(e) => this.props.inputHandler('password', e)} placeholder="password" placeholderTextColor='gray' />
+                    <TextInput style={styles.inputs} name='username' value={this.props.username} onChangeText={(e) => this.props.inputHandler('username', e)} placeholder="username" placeholderTextColor='gray'/>
+                    <TextInput style={styles.inputs} secureTextEntry={true} name='password' onChangeText={(e) => this.props.inputHandler('password', e)} placeholder="password" placeholderTextColor='gray' />
                 </View>
                 <View style={styles.buttonHolder} >
                     <TouchableOpacity style={styles.buttonArea} onPress={this.props.buttonHandler}>

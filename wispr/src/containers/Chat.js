@@ -3,6 +3,30 @@ import {View, StyleSheet, Text, Modal, Button, TextInput} from 'react-native'
 import sampleChat from '../data/sampleChat'
 
 class Chat extends React.PureComponent {
+    state = {
+        messages: []
+    }
+    
+
+    componentDidMount() {
+        const {consumer, createChannel} = this.props.SOCKET
+        const object = {channel: 'MessagesChannel', chat_id: this.props.chat.id}
+        this.props.SOCKET.messageChannel = createChannel(consumer, object, this.handleMessageData)
+    }
+
+    handleMessageData = (data) => {
+        let parsed = JSON.parse(data)
+        if (Array.isArray(parsed.data)) {
+            let newData = parsed.data.map(mes => mes.attributes)
+            this.setState({
+                messages: [...this.state.messages, ...newData]
+            })
+        } else {
+            this.setState({
+                messages: [...this.state.messages, parsed.data.attributes]
+            }, () => console.log(this.state.messages))
+        }
+    }
     
     render() {
         return (
@@ -10,10 +34,10 @@ class Chat extends React.PureComponent {
                 <View style={styles.window}>
                     <View style={styles.head}>
                         <Text style={styles.chatTitle}>
-                            {props.chat.username}
+                            {this.props.chat.username}
                         </Text>
                         <View style={styles.backButton} >
-                            <Button title="back to all" />
+                            <Button onPress={this.props.closeModal} title="back to all"/>
                         </View>
                     </View> 
         
