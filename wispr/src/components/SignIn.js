@@ -7,9 +7,9 @@ export default class SignIn extends React.PureComponent {
         return (
             <View>
                 <View style={styles.SignInForm}>
-                    <TextInput style={styles.inputs} name='username' value={this.props.username} onChange={(e) => this.props.inputHandler('username', e)} placeholder="username" placeholderTextColor='purple'
+                    <TextInput style={styles.inputs} name='username' value={this.props.username} onChange={(e) => this.props.inputHandler('username', e)} placeholder="username" placeholderTextColor='gray'
  />
-                    <TextInput style={styles.inputs} secureTextEntry={true} name='password' onChange={(e) => this.props.inputHandler('password', e)} placeholder="password" placeholderTextColor='purple' />
+                    <TextInput style={styles.inputs} secureTextEntry={true} name='password' onChange={(e) => this.props.inputHandler('password', e)} placeholder="password" placeholderTextColor='gray' />
                 </View>
                 <View style={styles.buttonHolder} >
                     <TouchableOpacity style={styles.buttonArea} onPress={this.props.buttonHandler}>
@@ -25,29 +25,29 @@ export default class SignIn extends React.PureComponent {
 
 const styles = StyleSheet.create({
     SignInForm: {
-        height: "70%",
+        height: "66%",
         justifyContent: 'flex-end',
         alignItems: 'center'
     },
     inputs: {
         margin: 3,
         borderColor: 'gray',
-        width: '50%',
-        fontSize: 20,
+        width: '60%',
+        fontSize: 35,
         color: '#9C27B0',
         borderBottomWidth: 3,
-        borderBottomColor: 'white',
+        borderBottomColor: 'purple',
         // backgroundColor:'white'
         // borderColor: 'gray',
     },
     logIn: {
         color: 'purple',
-        fontSize: 20
+        fontSize: 30
     },
     buttonArea: {
-        // borderColor: 'gray',
-        // borderWidth: 2,
-        height: '20%',
+        borderColor: 'gray',
+        borderWidth: 2,
+        height: '30%',
         alignItems: 'center'
     },
     buttonHolder: {

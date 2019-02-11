@@ -2,7 +2,7 @@ import React from 'react'
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native'
 import bird from '../assets/bird.jpg'
 const ChatSnippet = props => (
-    <TouchableOpacity onTouch={props.selectChatHandler} >
+    <TouchableOpacity onPress={() => props.selectChatHandler(props.data)} >
         <View style={styles.snippetHolder}> 
             <Image source={bird} style={styles.image} />
             <View style={styles.chatInfo}>

@@ -9,8 +9,7 @@ const ChatList = (props) => (
         <TextInput placeholder="Search Conversations..." style={styles.searchConvos}/>
         <FlatList
             data={chatData}
-            renderItem={ ({item})=> <ChatSnippet data={item} />}
-            selectChatHandler={props.selectChatHandler}
+            renderItem={ ({item})=> <ChatSnippet data={item} selectChatHandler={props.selectChatHandler}/>}
         />
     </View>
 )
