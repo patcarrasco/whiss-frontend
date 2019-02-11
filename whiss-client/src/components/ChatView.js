@@ -18,18 +18,16 @@ class ChatView extends Component {
   }
 
 	handleNewMessages = (data) => {
-		let newMessages = JSON.parse(data).data;
-		if (Array.isArray(newMessages)) {
-			newMessages = newMessages.map(m => m.attributes);
-			this.setMessages(newMessages);
-		} else {
-			newMessages = newMessages.attributes;
-			newMessages = [newMessages, ...this.state.messages];
-			this.setMessages(newMessages);
-		}
+		console.log(JSON.parse(data).data);
 	}
 	back = () => {
 		this.props.handleClick({});
+	}
+	sendNotification = () => {
+		this.props.socket.messageChannel.send({
+			message: {user_id: 1, chat_id: 3, content: "fjdlfjslks;"},
+			recipients: [{id:1},{id:3},{id:4}]
+		});
 	}
   render() {
   	return (
@@ -37,6 +35,7 @@ class ChatView extends Component {
 	      <MessageList chat={this.props.chat} messages={this.state.messages}/>
 	    	{/*<MessageForm handleSubmit={props.handleSubmit} />*/}
 	    	<button onClick={this.back}>Back</button>
+	    	<button onClick={this.sendNotification}>Send Notification</button>
 	    </section>
 	  );
   }

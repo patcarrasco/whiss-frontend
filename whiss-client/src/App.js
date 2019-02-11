@@ -9,7 +9,7 @@ class App extends React.Component {
 	API_URL = "http://localhost:3000/api/v1/login";
 
 	state = {
-		chats: [],
+		chats: [{title: "YO", id: 3}],
 		chat: {},
 		view: false
 	}
@@ -23,36 +23,23 @@ class App extends React.Component {
   			"Content-Type": "application/json"
   		},
   		body: JSON.stringify({username: "johnmark", password: "none"})
-  	})
-	  this.Socket.chatChannel = this.createChannel(
-	  	this.Socket.consumer,
-	  	{channel: "ChatsChannel", token: localStorage.token},
-	  	this.handleNewChats
-	  );
+  	}).then(res=>res.json()).then(this.setupChannel)
   }
   componentWillUnmount() {
 	  this.Socket.chatChannel.unsubscribe();
   }
 
-	handleNewChats = (data) => {
-		let parsedData = JSON.parse(data).data;
-		if (Array.isArray(parsedData)) {
-			parsedData = parsedData.map(obj => obj.attributes);
-			this.setState({chats:parsedData});
-		} else {
-			parsedData = parsedData.attributes
-			this.setState({chats:[parsedData, ...this.state.chats]});
-		}
-	}
+  setupChannel = (data) => {
+  	localStorage.setItem("token", data.token);
+  	this.Socket.chatChannel = this.createChannel(
+	  	this.Socket.consumer,
+	  	{channel: "ChatsChannel", token: localStorage.getItem("token")},
+	  	this.handleNewChats
+	  );
+  }
 
-	handleParsing(data) {
-		let parsedData;
-		if (typeof data === "string") {
-			parsedData = JSON.parse(data);
-		} else {
-			parsedData = data;
-		}
-		return parsedData
+	handleNewChats = (data) => {
+		console.log(data);
 	}
 
 	sendChat = (title, members) => {
