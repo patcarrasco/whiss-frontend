@@ -1,38 +1,48 @@
 import React from 'react';
 import ChatList from './components/ChatList';
-import MessageList from './components/MessageList';
+import ChatView from './components/ChatView';
 import ActionCable from 'actioncable';
 import './App.css';
 
 class App extends React.Component {
 	API_WS_URL = "ws://localhost:3000/api/v1/cable";
-	API_URL = "http://localhost:3000/api/v1";
+	API_URL = "http://localhost:3000/api/v1/login";
 
 	state = {
-		messages: [],
 		chats: [],
-		userId: 1
+		chat: {},
+		view: false
 	}
 
-  Socket = {};
+  Socket = {consumer: ActionCable.createConsumer(this.API_WS_URL)}
 
-  getData = (url, cb) => {
-  	fetch(url)
-  		.then(res => res.json())
-	    .then(cb);
-	}
   componentDidMount() {
-		this.getData(this.API_URL+"/messages", this.handleNewMessages);
-  	this.Socket.consumer = ActionCable.createConsumer(this.API_WS_URL);
-	  this.Socket.chatChannel = this.createChannel(this.Socket.consumer, {channel: "ChatsChannel", user_id: this.state.userId}, this.handleNewChat);
+  	fetch(this.API_URL, {
+  		method: "POST",
+  		headers: {
+  			"Content-Type": "application/json"
+  		},
+  		body: JSON.stringify({username: "johnmark", password: "none"})
+  	})
+	  this.Socket.chatChannel = this.createChannel(
+	  	this.Socket.consumer,
+	  	{channel: "ChatsChannel", token: localStorage.token},
+	  	this.handleNewChats
+	  );
+  }
+  componentWillUnmount() {
+	  this.Socket.chatChannel.unsubscribe();
   }
 
-
-	handleNewChat = (data) => {
-
-		const parsedData = JSON.parse(data).data.attributes;
-		console.log(parsedData)
-		this.Socket.messageChannel = this.createChannel(this.Socket.consumer, {channel: "MessagesChannel", chat_id: parsedData.id}, this.handleNewMessage);
+	handleNewChats = (data) => {
+		let parsedData = JSON.parse(data).data;
+		if (Array.isArray(parsedData)) {
+			parsedData = parsedData.map(obj => obj.attributes);
+			this.setState({chats:parsedData});
+		} else {
+			parsedData = parsedData.attributes
+			this.setState({chats:[parsedData, ...this.state.chats]});
+		}
 	}
 
 	handleParsing(data) {
@@ -45,29 +55,10 @@ class App extends React.Component {
 		return parsedData
 	}
 
-	handleNewMessages = (data) => {
-		let parsedData = this.handleParsing(data).data;
-		parsedData = parsedData.map(obj => obj.attributes).sort(message => -message.id);
-		this.setState({
-			messages: parsedData
-		})
-	}
-
-	handleNewMessage = (data) => {
-		let parsedData = this.handleParsing(data).data.attributes;
-		this.setState({
-			messages: [parsedData, ...this.state.messages]
-		})
-	}
-
-	createNewChat = () => {
-		this.sendChat("New Chat", "Yo, Homies", [1,2,3,4]);
-	}
-	sendChat = (title, firstMessage = "Welcome to the Chat", friends) => {
+	sendChat = (title, members) => {
 		this.Socket.chatChannel.send({
 			title: title,
-			initial_content: {user_id: this.state.userId, content: firstMessage},
-			friends: friends
+			members: members
 		})
 	}
 
@@ -88,16 +79,24 @@ class App extends React.Component {
 	  });
 	}
 
-	deleteChannel = (channel) => {
-		channel.unsubscribe();
+	toggleChatView = (chat) => {
+		this.setState({
+			view: !this.state.view,
+			chat: chat
+		});
+	}
+	showViews() {
+		if (this.state.view) {
+			return <ChatView handleClick={this.toggleChatView} chat={this.state.chat} socket={this.Socket} createChannel={this.createChannel} />
+		} else {
+			return <ChatList handleClick={this.toggleChatView} chats={this.state.chats} />
+		}
 	}
 
   render() {	
 	  return (
 	    <div className="App">
-	    	{/*<ChatList chats={this.state.chats} />*/}
-	    	<MessageList chat={{title: "Cool"}} messages={this.state.messages} />
-	    	<button onClick={this.createNewChat}>Test</button>
+	    	{this.showViews()}
 	    </div>
 	  );
   }
