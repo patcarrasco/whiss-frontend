@@ -18,7 +18,7 @@ class ChatView extends Component {
   }
 
 	handleNewMessages = (data) => {
-		console.log(JSON.parse(data).data);
+		console.log(data);
 	}
 	back = () => {
 		this.props.handleClick({});
