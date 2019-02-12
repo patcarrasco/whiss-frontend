@@ -52,7 +52,7 @@ export default class App extends Component {
 
   setupChannel = (data) => {
     AsyncStorage.setItem("token", data.token)
-    this.SOCKET.chatChannel = this.SOCKET.createChannel(this.SOCKET.consumer, { channel: "ChatsChannel", token: data.token}, this.handleChannelData)
+    this.SOCKET.chatChannel = this.SOCKET.createChannel(this.SOCKET.consumer, { channel: "ChatsChannel", token: data.token}, this.handleChannelData)    
   }
   
   handleChannelData = (e) => {
@@ -100,7 +100,6 @@ export default class App extends Component {
   )
 
   render() {
-
     return (
       <View style={styles.fullApp}>
         {!this.state.activeUser ? this.signInForm() :

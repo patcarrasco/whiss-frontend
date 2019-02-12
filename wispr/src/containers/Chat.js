@@ -1,7 +1,6 @@
 import React from 'react'
-import {View, StyleSheet, Text, Modal, Button, TextInput} from 'react-native'
-import sampleChat from '../data/sampleChat'
-
+import {View, StyleSheet, Text, Modal, Button, TextInput, FlatList} from 'react-native'
+import Message from '../components/Message'
 class Chat extends React.PureComponent {
     state = {
         messages: []
@@ -27,7 +26,16 @@ class Chat extends React.PureComponent {
             }, () => console.log(this.state.messages))
         }
     }
-    
+
+    messages() {
+        return (
+            <FlatList
+                data={this.state.messages}
+                renderItem={ ({item})=> <Message data={item}/>}
+            />
+        )
+    }
+
     render() {
         return (
         <Modal>
@@ -40,10 +48,8 @@ class Chat extends React.PureComponent {
                             <Button onPress={this.props.closeModal} title="back to all"/>
                         </View>
                     </View> 
-        
                     <View style={styles.chatSpace}>
-        
-        
+                        {this.messages()}
                     </View>
                     <View style={styles.chatInput}>
                         <TextInput placeholder="message..." multiline={true}/>
