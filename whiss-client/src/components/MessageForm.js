@@ -1,12 +1,8 @@
 import React, {useState} from 'react';
-import MessageListItem from './MessageListItem';
-import ChatConnection from './ChatConnection';
 
 const MessageForm = props =>  {
 	const [message, setMessage] = useState("");
-	const handleChange = (e) => {
-		setMessage(e.target.value);
-	}
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		props.handleSubmit(message)
@@ -14,7 +10,7 @@ const MessageForm = props =>  {
 	}
   return (
   	<form onSubmit={handleSubmit} >
-  		<input required value={message} type="text" onChange={handleChange}/>
+  		<input required value={message} type="text" onChange={(e) => setMessage(e.target.value)}/>
   		<button>Send</button>
   	</form>
   );

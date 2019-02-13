@@ -34,7 +34,7 @@ class ChatList extends React.Component  {
   chatList() {
   	return (
   		<ul id="chat-list" style={{listStyleType: "none"}}>
-	  		{this.props.chats.map(chat => (<button key={chat.id} chat={chat} onClick={() => this.setChatView(chat)}>{chat.title}</button>))}
+	  		{this.props.chats.map(chat => (<li key={chat.id}><button chat={chat} onClick={() => this.setChatView(chat)}>{chat.title}</button></li>))}
 			</ul>
 		);
   }

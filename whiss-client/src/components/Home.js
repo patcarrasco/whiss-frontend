@@ -38,6 +38,7 @@ class Home extends React.Component  {
 			<Fragment>
 				<nav>
 					<Link to="/chats">Chats</Link>
+					<Link to="/chats/new">New Chat</Link>
 					<button onClick={this.logOut}>Logout</button>
 				</nav>
 				<Route path="/chats" render={props => <ChatContainer {...props} SOCKET={this.SOCKET}/>}/>
