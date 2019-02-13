@@ -2,25 +2,37 @@ import React, {useState} from 'react';
 
 const ChatForm = props =>  {
 	const [title, setTitle] = useState("");
-	const [friends, setFriends] = useState([]);
+	const [selectedFriends, setSelectedFriends] = useState([]);
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		props.handleSubmit(title)
+		const newChatObject = {
+			selectedFriends,
+			title
+		};
+		props.handleSubmit(newChatObject);
+
+		e.target.selectedFriends.value = "";
 		setTitle("");
+		setSelectedFriends([]);
 	}
 	const handleFriendSelect = (e) => {
-		console.log(e.target.options.filter(option => option.selected));
+		let options = Array.from(e.target.selectedOptions).map(o => o.value);
+		setSelectedFriends(options);
+	}
+
+	const displayFriends = () => {
+		return (
+			<select onChange={handleFriendSelect} required name="selectedFriends" multiple={true}>
+				{props.friends.map(f => <option key={f.id} value={f.id}>{f.name}</option>)}
+			</select>
+		);
 	}
   return (
   	<form onSubmit={handleSubmit}>
-			<select onChange={handleFriendSelect} name="friends" value={friends} multiple={true}>
-			  <option value="volvo">Volvo</option>
-			  <option value="saab">Saab</option>
-			  <option value="opel">Opel</option>
-			  <option value="audi">Audi</option>
-			</select>
+			{displayFriends()}
 			<label htmlFor="title">Title</label>
-  		<input name="title" value={title} type="text" onChange={(e) => setTitle(e.target.value)}/>
+  		<input required name="title" value={title} type="text" onChange={(e) => setTitle(e.target.value)}/>
   		<button>Create</button>
   	</form>
   );
