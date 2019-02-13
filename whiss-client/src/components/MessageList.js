@@ -7,7 +7,6 @@ const MessageList = props =>  {
   }
   return (
     <ul id="message-list">
-    	<h1>{props.chat.title}</h1>
       {messages()}
     </ul>
   );

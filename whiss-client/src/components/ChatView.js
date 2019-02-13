@@ -1,44 +1,57 @@
-import React, {Component} from 'react';
+import React, {Fragment,Component} from 'react';
 import MessageList from './MessageList';
+import MessageForm from './MessageForm';
+
 
 class ChatView extends Component {
+
 	state = {
 		messages: []
 	}
 
-	setMessages = (messages) => {
-		this.setState({messages});
-	}
-
 	componentDidMount() {
-		this.props.socket.messageChannel = this.props.createChannel(this.props.socket.consumer, {channel: "MessagesChannel", chat_id: this.props.chat.id}, this.handleNewMessages);
+		this.props.SOCKET.messagesChannel = this.props.SOCKET.createChannel(
+			this.props.SOCKET.consumer,
+			{channel: "MessagesChannel", chat_id: this.props.chat.id},
+			this.setMessages
+		);
 	}
-  componentWillUnmount() {
-  	this.props.socket.messageChannel.unsubscribe();
-  }
+	componentWillUnmount() {
+		this.props.SOCKET.messagesChannel.unsubscribe();
+	}
 
-	handleNewMessages = (data) => {
-		console.log(data);
+	setMessages = (data) => {
+		const parsedData = JSON.parse(data);
+		if (Array.isArray(parsedData)) {
+			this.setState({
+				messages: parsedData
+			});
+		} else {
+			this.setState({
+				messages: [...this.state.messages, parsedData]
+			});	
+		}
 	}
-	back = () => {
-		this.props.handleClick({});
+
+	sendMessage = (message) => {
+		const formattedMessage = {
+			token: localStorage.getItem("token"),
+			chat_id: this.props.chat.id,
+			content: message
+		}
+		this.props.SOCKET.messagesChannel.send(formattedMessage);
 	}
-	sendNotification = () => {
-		this.props.socket.messageChannel.send({
-			message: {user_id: 1, chat_id: 3, content: "fjdlfjslks;"},
-			recipients: [{id:1},{id:3},{id:4}]
-		});
+
+	render() {
+		return (
+			<Fragment>
+				<button onClick={this.props.handleBack}>Back</button>
+				<MessageList messages={this.state.messages}/>
+				<MessageForm handleSubmit={this.sendMessage}/>
+			</Fragment>
+		);
 	}
-  render() {
-  	return (
-	    <section>
-	      <MessageList chat={this.props.chat} messages={this.state.messages}/>
-	    	{/*<MessageForm handleSubmit={props.handleSubmit} />*/}
-	    	<button onClick={this.back}>Back</button>
-	    	<button onClick={this.sendNotification}>Send Notification</button>
-	    </section>
-	  );
-  }
 }
+
 
 export default ChatView;

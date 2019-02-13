@@ -1,92 +1,65 @@
 import React from 'react';
-import ChatList from './components/ChatList';
-import ChatView from './components/ChatView';
-import ActionCable from 'actioncable';
+import {Route, Switch, withRouter} from 'react-router-dom'
+import PublicOnlyRoute from './components/PublicOnlyRoute';
+import PrivateRoute from './components/PrivateRoute';
+import Welcome from './components/Welcome';
+import Home from './components/Home';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
 import './App.css';
 
 class App extends React.Component {
-	API_WS_URL = "ws://localhost:3000/api/v1/cable";
-	API_URL = "http://localhost:3000/api/v1/login";
+	API_URL = "http://localhost:3000/api/v1";
 
-	state = {
-		chats: [{title: "YO", id: 3}],
-		chat: {},
-		view: false
-	}
-
-  Socket = {consumer: ActionCable.createConsumer(this.API_WS_URL)}
-
-  componentDidMount() {
-  	fetch(this.API_URL, {
+	login = (loginObject) => {
+		fetch(this.API_URL + "/login", {
   		method: "POST",
   		headers: {
   			"Content-Type": "application/json"
   		},
-  		body: JSON.stringify({username: "johnmark", password: "none"})
-  	}).then(res=>res.json()).then(this.setupChannel)
-  }
-  componentWillUnmount() {
-	  this.Socket.chatChannel.unsubscribe();
-  }
-
-  setupChannel = (data) => {
-  	localStorage.setItem("token", data.token);
-  	this.Socket.chatChannel = this.createChannel(
-	  	this.Socket.consumer,
-	  	{channel: "ChatsChannel", token: localStorage.getItem("token")},
-	  	this.handleNewChats
-	  );
-  }
-
-	handleNewChats = (data) => {
-		console.log(data);
-	}
-
-	sendChat = (title, members) => {
-		this.Socket.chatChannel.send({
-			title: title,
-			members: members
-		})
-	}
-
-	createChannel = (consumer, channelSettings, handleReceivedData) => {
-		return consumer.subscriptions.create(channelSettings, {
-	    received: (data) => {
-	    	handleReceivedData(data);
-	    },
-	    connected: function() {
-	      console.log("Connected")
-	    },
-	    disconnected: function() {
-	      console.log("Disconnected")
-	    },
-	    rejected: function() {
-	      console.log("Rejected")
-	    }
-	  });
-	}
-
-	toggleChatView = (chat) => {
-		this.setState({
-			view: !this.state.view,
-			chat: chat
+  		body: JSON.stringify(loginObject)
+  	})
+  	.then(res => res.json()).then(json => {
+			if(!!json.token) {
+  			localStorage.setItem("token", json.token);
+        this.props.history.replace("/")
+			} else {
+				alert(json.message)
+			}
 		});
-	}
-	showViews() {
-		if (this.state.view) {
-			return <ChatView handleClick={this.toggleChatView} chat={this.state.chat} socket={this.Socket} createChannel={this.createChannel} />
-		} else {
-			return <ChatList handleClick={this.toggleChatView} chats={this.state.chats} />
-		}
-	}
+  }
+  signUp = (signUpObject) => {
+  	fetch(this.API_URL + "/sign-up", {
+  		method: "Post",
+  		headers: {
+  			"Content-Type": "application/json"
+  		},
+  		body: JSON.stringify(signUpObject)
+  	})
+  		.then(res => res.json())
+  		.then(json => {
+  			if(json.token) {
+	  			localStorage.setItem("token", json.token);
+          this.props.history.replace("/")
+  			} else {
+  				alert(json.message)
+  			}
+  		});
+  }
+
 
   render() {	
-	  return (
-	    <div className="App">
-	    	{this.showViews()}
+		return (
+			<div className="App">
+				<Switch>
+					<Route path="/login" render={(props) => <Login {...props} handleSubmit={this.login} />} />
+					<Route path="/sign-up" render={(props) => <SignUp {...props} handleSubmit={this.signUp} />} />
+					<PublicOnlyRoute path='/welcome' component={Welcome} />
+					<PrivateRoute path='/' component={Home} />
+				</Switch>
 	    </div>
 	  );
   }
 }
 
-export default App;
+export default withRouter(App);
