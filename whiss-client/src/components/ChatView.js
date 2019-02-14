@@ -1,6 +1,7 @@
 import React, {Fragment,Component} from 'react';
 import MessageList from './MessageList';
 import MessageForm from './MessageForm';
+import {withRouter} from 'react-router-dom';
 
 
 class ChatView extends Component {
@@ -41,11 +42,14 @@ class ChatView extends Component {
 		}
 		this.props.SOCKET.messagesChannel.send(formattedMessage);
 	}
+	handleBack = () => {
+		this.props.history.push("/chats/list");
+	}
 
 	render() {
 		return (
 			<Fragment>
-				<button onClick={this.props.handleBack}>Back</button>
+				<button onClick={this.handleBack}>Back</button>
 				<MessageList messages={this.state.messages}/>
 				<MessageForm handleSubmit={this.sendMessage}/>
 			</Fragment>
@@ -54,4 +58,4 @@ class ChatView extends Component {
 }
 
 
-export default ChatView;
+export default withRouter(ChatView);

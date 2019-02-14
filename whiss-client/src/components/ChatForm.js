@@ -7,8 +7,8 @@ const ChatForm = props =>  {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const newChatObject = {
-			selectedFriends,
-			title
+			members: selectedFriends,
+			title: title
 		};
 		props.handleSubmit(newChatObject);
 
