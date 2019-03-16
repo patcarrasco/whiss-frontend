@@ -25,7 +25,7 @@ const Welcome = (props) => {
 	return (
 		<Fragment>
 			<Switch>
-				<Route path="/welcome" component={Login}/>
+				<Route path="/" component={Login}/>
 				<Route path="/sign-up" component={SignUp}/>
 			</Switch>
 		</Fragment>

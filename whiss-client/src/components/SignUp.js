@@ -53,7 +53,7 @@ const SignUp = props =>  {
 			return (
 				<Fragment>
 					<Link to="/login">Login</Link>
-					<h1>Sign Up</h1>;
+					<h1>Sign Up</h1>
 					<form onSubmit={handleSubmit}>
 						<label htmlFor="name">Name</label>
 						<input required autoFocus name="name" type="text" value={name} onChange={handleNameChange} />

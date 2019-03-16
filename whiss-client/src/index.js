@@ -10,10 +10,9 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
-console.log(store);
 
 ReactDOM.render(
-	<Provider store="store">
+	<Provider store={store}>
 		<BrowserRouter>
 			<App/>
 		</BrowserRouter>
