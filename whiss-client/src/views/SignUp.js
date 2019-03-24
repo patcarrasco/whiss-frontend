@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, { useState } from 'react';
 import {Link, Redirect} from 'react-router-dom'
 
 const SignUp = props =>  {
@@ -48,29 +48,27 @@ const SignUp = props =>  {
 		setPassword("");
 	}
 
-	const validateToken = () => {
-		if (!localStorage.getItem("token")) {
-			return (
-				<Fragment>
+	if (!localStorage.getItem("token")) {
+		return (
+			<section>
+				<nav>
 					<Link to="/login">Login</Link>
-					<h1>Sign Up</h1>
-					<form onSubmit={handleSubmit}>
-						<label htmlFor="name">Name</label>
-						<input required autoFocus name="name" type="text" value={name} onChange={handleNameChange} />
-						<label htmlFor="username">Username</label>
-						<input required autoFocus name="username" type="text" value={username} onChange={handleUsernameChange} />
-						<label htmlFor="password">Password</label>
-						<input required name="password" type="password" value={password} onChange={handlePasswordChange} />
-						<button>Sign Up</button>
-					</form>
-				</Fragment>
-			);
-		} else {
-			return <Redirect to="/" />;
-		}
+				</nav>
+				<h1>Sign Up</h1>
+				<form onSubmit={handleSubmit}>
+					<label htmlFor="name">Name</label>
+					<input required autoFocus name="name" type="text" value={name} onChange={handleNameChange} />
+					<label htmlFor="username">Username</label>
+					<input required autoFocus name="username" type="text" value={username} onChange={handleUsernameChange} />
+					<label htmlFor="password">Password</label>
+					<input required name="password" type="password" value={password} onChange={handlePasswordChange} />
+					<button>Sign Up</button>
+				</form>
+			</section>
+		);
+	} else {
+		return <Redirect to="/" />;
 	}
-
-	return validateToken();
 }
 
 export default SignUp;
