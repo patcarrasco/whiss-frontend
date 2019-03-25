@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
 import { Route, Switch, withRouter } from 'react-router-dom'
-import SignUp from './views/SignUp';
-import Login from './views/Login';
-import Home from './views/Home';
+import SignUp from './containers/SignUp';
+import Login from './containers/Login';
+import Home from './containers/Home';
 
 const App = props => {
 	return (

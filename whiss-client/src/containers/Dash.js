@@ -1,19 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import WisprForm from "../components/WisprForm";
+import NewWisprForm from "../components/NewWisprForm/NewWisprForm";
+import Nav from "../components/Nav/Nav";
 
 const Dash = ({ wisprs }) => {
 	const wisprItems = wisprs.map(w => <li key={w.id}>{w.title}</li>);
 
 	return (
-		<section>
-			<nav><Link to="/chats">Chats</Link><Link to="/log-out">Log Out</Link></nav>
-			<h1>Dash</h1>
-			<ul>
+		<section className="dash-page">
+			<header>
+				<Nav><Link to="/chats">Chats</Link></Nav>
+			</header>
+			<main>
 				{wisprItems}
-			</ul>
-			<WisprForm />
+			</main>
+			<NewWisprForm />
 		</section>
 	);
 }

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { fetchUsers } from '../store';
 import { connect } from 'react-redux';
 import StartChatButton from '../components/StartChatButton';
-import SearchForm from '../components/SearchForm';
+import SearchForm from '../components/SearchForm/SearchForm';
 
 const NewChat = ({users, fetchUsers}) =>  {
   const startButtons = users.map(u => <li key={u.id}><StartChatButton user={u}/></li>);

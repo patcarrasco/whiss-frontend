@@ -5,7 +5,7 @@ import { clearState } from '../store';
 import { ActionCableProvider } from 'react-actioncable-provider';
 import { WS_URL } from '../constants';
 import Dash from './Dash';
-import ChatsContainer from './ChatsContainer/ChatsContainer';
+import ContainerChats from './ContainerChats/ContainerChats';
 import MessagesContainer from './MessagesContainer/MessagesContainer';
 import NewChat from './NewChat';
 import LogOut from './LogOut';
@@ -18,7 +18,7 @@ const Home = props => {
 			<ActionCableProvider url={WS_URL + `?token=${localStorage.getItem("token")}`}>
 				<Switch>
 					<Route path="/chats/:id" component={MessagesContainer} />
-					<Route path="/chats" component={ChatsContainer} />
+					<Route path="/chats" component={ContainerChats} />
 					<Route path="/new-chat" component={NewChat} />
 					<Route path="/log-out" component={LogOut} />
 					<Route path="/" component={Dash} />

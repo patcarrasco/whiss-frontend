@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Nav from '../../components/Nav';
+import Nav from '../../components/Nav/Nav';
 import HeaderTitle from '../../components/HeaderTitle';
-import MessageList from '../../components/MessageList';
+import MessageList from '../../components/MessageList/MessageList';
 import NewMessageForm from '../../components/NewMessageForm/NewMessageForm';
 
 const Messages = ({messages, sendMessage, chatId}) => {
@@ -15,7 +15,7 @@ const Messages = ({messages, sendMessage, chatId}) => {
 		sendMessage(message);
 	}
 	return (
-		<section>
+		<section className="message-page">
 			<header>
 				<Nav><Link to="/chats">Chats</Link></Nav>
 				<HeaderTitle>{"Hi"}</HeaderTitle>

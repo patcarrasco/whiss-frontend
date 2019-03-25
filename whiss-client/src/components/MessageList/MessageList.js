@@ -6,7 +6,9 @@ const MessageList = ({messages}) => {
 	const messageComponents = messages.map(m => <Message key={m.id} mine={m.user.name === currentUser.name} title={m.user.name} body={m.content} />);
 	return (
 		<main className="message-list">
-			{ messageComponents }
+			<section>
+				{ messageComponents }
+			</section>
 		</main>
 	);
 };

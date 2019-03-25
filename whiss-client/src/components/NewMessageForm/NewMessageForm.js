@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Input from '../../components/Input';
 import SendButton from '../../components/SendButton';
 
-const NewMessageForm = ({sendMessage}) => {
+const NewMessageForm = ({title = null, sendMessage}) => {
 	const [content, setContent] = useState("");
 
 	const handleSend = (e) => {
@@ -11,12 +11,13 @@ const NewMessageForm = ({sendMessage}) => {
 		setContent("");
 	}
 	return (
-		<section className="message-form">
+		<footer className="message-form">
+			{title ? <h3>{title}</h3> : null}
 			<form className="message-form" onSubmit={handleSend}>
-				<Input required={true} type="text" onChange={e => setContent(e.target.value)} placeholder="Aa" />
+				<Input required={true} type="text" value={content} onChange={e => setContent(e.target.value)} placeholder="Aa" />
 				<SendButton />
 			</form>
-		</section>
+		</footer>
 	);
 }
 

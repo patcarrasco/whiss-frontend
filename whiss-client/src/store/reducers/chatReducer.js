@@ -1,6 +1,7 @@
 const initialState = {
 	messages: [],
-	chats: []
+	chats: [],
+	filterTerm: ""
 };
 
 const chatReducer = (state = initialState, action) => {
@@ -12,6 +13,8 @@ const chatReducer = (state = initialState, action) => {
 			return {...state, messages: action.payload};
 		case "SET_CHATS":
 			return {...state, chats: action.payload};
+		case "SET_FILTER_TERM": 
+			return {...state, filterTerm: action.payload};
 		case "CLEAR_STATE": 
 			return initialState;
 		default:

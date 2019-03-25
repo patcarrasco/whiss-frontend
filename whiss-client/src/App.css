@@ -76,7 +76,6 @@ button.button:active {
 
 input.input-field {
 	outline: 0;
-	font: inherit;
 	font-weight: 400;
 	display: block;
 	background: 0;
@@ -95,12 +94,23 @@ input.input-field:focus {
 	border-color: #CDCDCD;
 }
 
+
+section.message-page, section.dash-page, section.chat-page {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 6.375rem calc(100vh - 10.125rem) 3.75rem;
+}
+
+section.dash-page {
+	grid-template-rows: 3.5625rem calc(100vh - 9.3125rem) 5.75rem;
+}
+
+section.chat-page {
+	grid-template-rows: 6.375rem calc(100vh - 10.125rem) 3.75rem;
+}
+
 header {
-	position: -webkit-sticky;
-	position: sticky;
-	top: 0;
-	left: 0;
-	right: 0;
+	z-index: 1;
 	box-shadow: 0 0 0.625rem #362E2E;
 }
 nav.main-nav {
@@ -146,18 +156,21 @@ nav.main-nav a.log-out:hover {
 	height: 1.0625rem;
 }
 
-main.message-list {
-	margin: 0.9375rem;
+main.message-list > section {
+	padding: 0.9375rem;
 	display: grid;
 	grid-template-columns: repeat(8, 1fr);
 	grid-template-rows: auto;
-	grid-row-gap: 0.625rem;
 	grid-row-gap: 0.9375rem;
+}
+main.message-list {
+	overflow: scroll;
 }
 
 
 div.message, div.message-mine {
-	grid-column: 1/8;
+	grid-column-start: 1;
+	grid-column-end: 8;
 	border-radius: .5rem;
 	padding: 0.5rem 0.875rem 0.8125rem;
 	background-color: #CDCDCD;
@@ -177,18 +190,50 @@ div.message p, div.message-mine {
 	color: rgba(9,8,8,1);
 }
 
-section.message-form {
-	position: -webkit-sticky;
-	position: sticky;
-	bottom: 0;
-	left: 0;
-	right: 0;
+footer {
+	z-index: 1;
 	box-shadow: 0 0 0.625rem #362E2E;
 }
+
+footer.message-form h3 {
+	font-size: 0.8rem;
+	font-style: italic;
+	color: #444444;
+	line-height: 1.25;
+	display: block;
+	background-color: #fff;
+	padding: 0.4375rem 0.9375rem 0.5625rem;
+}
+
 form.message-form {
 	display: grid;
 	grid-column-gap: 0.625rem;
 	grid-template-columns: 1fr 2.25rem;
+	background-color: #362E2E;
+	padding: 0.75rem 0.9375rem;
+}
+
+main.chat-list {
+	overflow: scroll;
+}
+div.chat-tile {
+	border-bottom: 1px solid #444444;
+	background-color: #7ED321;
+}
+div.chat-tile a {
+	padding: 1.0625rem 0.9375rem 1.25rem;
+	display: block;
+	width: 100%;
+	text-align: center;
+	color: rgba(9,8,8,0.5);
+	font-weight: 700;
+	font-size: 1rem;
+	line-height: 1.25;
+}
+
+form.search-form {
+	display: grid;
+	grid-template-columns: 1fr;
 	background-color: #362E2E;
 	padding: 0.75rem 0.9375rem;
 }
