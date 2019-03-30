@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import NewWisprForm from "../components/NewWisprForm/NewWisprForm";
+import FormNewWispr from "../components/FormNewWispr/FormNewWispr";
 import Nav from "../components/Nav/Nav";
 
 const Dash = ({ wisprs }) => {
@@ -15,7 +15,7 @@ const Dash = ({ wisprs }) => {
 			<main>
 				{wisprItems}
 			</main>
-			<NewWisprForm />
+			<FormNewWispr />
 		</section>
 	);
 }

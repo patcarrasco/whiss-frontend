@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Input from '../../components/Input';
-import SendButton from '../../components/SendButton';
+import Input from '../../components/Input/Input';
+import ButtonSend from '../../components/ButtonSend/ButtonSend';
 
-const NewMessageForm = ({title = null, sendMessage}) => {
+const FormNewMessage = ({title = null, sendMessage}) => {
 	const [content, setContent] = useState("");
 
 	const handleSend = (e) => {
@@ -15,10 +15,10 @@ const NewMessageForm = ({title = null, sendMessage}) => {
 			{title ? <h3>{title}</h3> : null}
 			<form className="message-form" onSubmit={handleSend}>
 				<Input required={true} type="text" value={content} onChange={e => setContent(e.target.value)} placeholder="Aa" />
-				<SendButton />
+				<ButtonSend />
 			</form>
 		</footer>
 	);
 }
 
-export default NewMessageForm;
+export default FormNewMessage;

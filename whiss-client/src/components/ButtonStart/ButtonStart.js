@@ -1,8 +1,8 @@
 import React from 'react';
 
-const StartChatButton = ({user}) =>  {
+const ButtonStart = ({user}) =>  {
   return (
   	<button>{user.username} - Start</button>
   );
 }
-export default StartChatButton;
+export default ButtonStart;

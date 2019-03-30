@@ -1,10 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import { ActionCableConsumer } from 'react-actioncable-provider';
 import Nav from '../../components/Nav/Nav';
-import ButtonHeader from '../../components/ButtonHeader/ButtonHeader';
+import HeaderButton from '../../components/HeaderButton/HeaderButton';
+import FormSearch from '../../components/FormSearch/FormSearch';
 import PageChats from './PageChats';
+import NewChat from './NewChat';
+import ContainerMessages from '../ContainerMessages/ContainerMessages';
 
 const ContainerChats = ({dispatch}) => {
 	const chatsChannel = React.createRef();
@@ -14,13 +17,20 @@ const ContainerChats = ({dispatch}) => {
 	}
 	return (
 		<ActionCableConsumer ref={chatsChannel} channel={channel} onReceived={dispatch}>
-			<section className="chat-page">
-				<header>
-					<Nav><Link to="/">Dash</Link></Nav>
-					<ButtonHeader to="/new-chat">{"New Chat"}</ButtonHeader>
-				</header>
-				<PageChats sendChat={sendChat} />
-			</section>
+			<Switch>
+				<Route path="/chats/new" render={() => <NewChat sendChat={sendChat} />} />
+				<Route path="/chats/:id" component={ContainerMessages} />
+				<Route path="/chats" render={() => (
+					<section className="chat-page">
+						<header>
+							<Nav><Link to="/">Dash</Link></Nav>
+							<HeaderButton to="/chats/new">{"New Chat"}</HeaderButton>
+						</header>
+						<PageChats />
+						<FormSearch placeholder="Search chats"/>
+					</section>)}
+				/>
+			</Switch>
 		</ActionCableConsumer>
 	);
 }

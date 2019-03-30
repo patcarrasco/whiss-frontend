@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom'
 
-const ButtonHeader = props => {
+const HeaderButton = props => {
 	return (
 		<header style={headerStyles}>
 			<Link style={linkStyles} to={props.to}>
@@ -13,7 +13,7 @@ const ButtonHeader = props => {
 		</header>
 	);
 }
-export default withRouter(ButtonHeader);
+export default withRouter(HeaderButton);
 
 const headerStyles = {
 	height: "2.8125rem",

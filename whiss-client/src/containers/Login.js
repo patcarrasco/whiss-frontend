@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux'
 import { Link, Redirect, withRouter } from 'react-router-dom'
 import { login } from '../store';
+import Nav from '../components/Nav/Nav';
+import HeaderTitle from '../components/HeaderTitle/HeaderTitle';
+import Input from '../components/Input/Input';
+import ButtonSubmit from '../components/ButtonSubmit/ButtonSubmit';
 
 const Login = props =>  {
 	const [username, setUsername] = useState("");
@@ -27,17 +31,17 @@ const Login = props =>  {
 
 	if (!localStorage.getItem("token")) {
 		return (
-			<section>
-				<nav>
-					<Link to="/sign-up">Sign Up</Link>
-				</nav>
-				<h1>Login</h1>
-				<form onSubmit={handleSubmit}>
-					<label htmlFor="username">Username</label>
-					<input required autoFocus name="username" type="text" value={username} onChange={handleUsernameChange} />
-					<label htmlFor="password">Password</label>
-					<input required name="password" type="password" value={password} onChange={handlePasswordChange} />
-					<button>Login</button>
+			<section className="access-page">
+				<header>
+					<Nav>
+						<Link to="/sign-up">Sign Up</Link>
+					</Nav>
+					<HeaderTitle>{"Login"}</HeaderTitle>
+				</header>
+				<form className="access-form" onSubmit={handleSubmit}>
+					<Input required autoFocus type="text" placeholder="Username" value={username} onChange={handleUsernameChange}/>
+					<Input required type="password" placeholder="Password" value={password} onChange={handlePasswordChange}/>
+					<ButtonSubmit>Login</ButtonSubmit>
 				</form>
 			</section>
 		);
