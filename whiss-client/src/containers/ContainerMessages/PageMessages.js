@@ -9,7 +9,7 @@ const PageMessages = ({messages}) => {
 }
 
 const mapStateToProps = state => ({
-	messages: state.chats.messages
+	messages: state.messages
 });
 
 export default connect(mapStateToProps)(PageMessages);

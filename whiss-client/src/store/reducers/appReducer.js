@@ -6,6 +6,9 @@ const appReducer = (state = initialState, action) => {
 			return initialState;
 		case "SET_USERS":
 			return {...state, users: action.payload}
+		case "SHOW_MESSAGE":
+			console.log(action.payload);
+			return state;
 		default:
 			return state;
 	}

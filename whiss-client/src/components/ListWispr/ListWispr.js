@@ -1,13 +1,14 @@
 import React from 'react';
-import Message from "./Message";
+import Wispr from "./Wispr";
+import { useScrollBottom } from "../../helpers";
 
-const ListWispr = ({messages}) => {
-	const currentUser = JSON.parse(localStorage.getItem("user"));
-	const messageComponents = messages.map(m => <Message key={m.id} mine={m.user.name === currentUser.name} title={m.user.name} body={m.content} />);
+const ListWispr = ({wisprs}) => {
+	const wisprRef = useScrollBottom();
+	const wisprComponents = wisprs.map(w => <Wispr key={w.id} body={w.content} />);
 	return (
-		<main className="message-list">
+		<main ref={wisprRef} className="message-list">
 			<section>
-				{ messageComponents }
+				{ wisprComponents }
 			</section>
 		</main>
 	);

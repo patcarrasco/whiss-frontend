@@ -1,16 +1,13 @@
 const initialState = {
-	messages: [],
 	chats: [],
 	filterTerm: ""
 };
 
 const chatReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case "ADD_MESSAGE":
-			const newMessages = [...state.messages, action.payload];
-			return {...state, messages: newMessages};
-		case "SET_MESSAGES":
-			return {...state, messages: action.payload};
+		case "ADD_CHAT":
+			const newChats = [action.payload, ...state.chats];
+			return {...state, chats: newChats};
 		case "SET_CHATS":
 			return {...state, chats: action.payload};
 		case "SET_FILTER_TERM": 

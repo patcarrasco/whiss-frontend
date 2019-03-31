@@ -1,12 +1,13 @@
-const initialState = {wisprs: []};
+const initialState = [];
 
 const wisprReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case "SET_WISPRS":
-			return {...state, wisprs: action.payload}
-		case "SHOW_MESSAGE":
-			console.log(action.payload);
-			return state;
+			return [...action.payload];
+		case "ADD_WISPR":
+			return [...state, action.payload];
+		case "CLEAR_STATE":
+			return initialState;
 		default:
 			return state;
 	}

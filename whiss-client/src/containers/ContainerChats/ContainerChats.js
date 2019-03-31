@@ -9,11 +9,12 @@ import PageChats from './PageChats';
 import NewChat from './NewChat';
 import ContainerMessages from '../ContainerMessages/ContainerMessages';
 
-const ContainerChats = ({dispatch}) => {
+const ContainerChats = ({dispatch, history}) => {
 	const chatChannel = React.createRef();
 	const channel = {channel: "ChatChannel"};
-	const sendChat = (chat = {members:[1,4], title: "How"}) => {
-		chatChannel.current.send({type: "NEW_CHAT", payload: chat });
+	const sendChat = (chat) => {
+		chatChannel.current.send({type: "NEW_CHAT", payload: chat});
+		history.push("/chats");
 	}
 	return (
 		<ActionCableConsumer ref={chatChannel} channel={channel} onReceived={dispatch}>

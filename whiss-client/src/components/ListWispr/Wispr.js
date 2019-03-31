@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Message = ({title, body, mine}) => {
+const Message = ({body}) => {
 	return (
-		<div className={mine ? "message-mine": "message"}>
-			<h4>{title}</h4>
+		<div className="wispr">
+			<h4>{"Wispr"}</h4>
 			<p>{body}</p>
 		</div>
 	);

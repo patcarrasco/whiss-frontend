@@ -96,13 +96,13 @@ input.input-field:focus {
 }
 
 
-section.message-page, section.dash-page, section.chat-page, section.new-chat-page {
+section.message-page, section.wispr-page, section.chat-page, section.new-chat-page {
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: 6.375rem calc(100vh - 10.125rem) 3.75rem;
 }
 
-section.dash-page {
+section.wispr-page {
 	grid-template-rows: 3.5625rem calc(100vh - 9.3125rem) 5.75rem;
 }
 
@@ -173,9 +173,8 @@ main.message-list {
 }
 
 
-div.message, div.message-mine {
-	grid-column-start: 1;
-	grid-column-end: 8;
+div.message, div.message-mine, div.wispr {
+	grid-column: 1/8;
 	border-radius: .5rem;
 	padding: 0.5rem 0.875rem 0.8125rem;
 	background-color: #CDCDCD;
@@ -184,15 +183,19 @@ div.message-mine {
 	grid-column: 2/9;
 	background-color: #7ED321;
 }
-div.message h4, div.message-mine h4 {
+div.message h4, div.message-mine h4, div.wispr h4 {
 	line-height: 1.40625;
 	font-size: 0.8rem;
 	color: rgba(9,8,8,0.5);
 	margin-bottom: 0.625rem;
 }
-div.message p, div.message-mine {
+div.message p, div.message-mine p, div.wispr p {
 	line-height: 1.25;
 	color: rgba(9,8,8,1);
+}
+
+div.wispr {
+	grid-column-end: 9;
 }
 
 footer {

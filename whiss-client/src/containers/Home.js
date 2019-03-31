@@ -4,7 +4,7 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import { clearState } from '../store';
 import { ActionCableProvider } from 'react-actioncable-provider';
 import { WS_URL } from '../constants';
-import Dash from './Dash';
+import ContainerWisprs from './ContainerWisprs/ContainerWisprs';
 import ContainerChats from './ContainerChats/ContainerChats';
 import LogOut from './LogOut';
 
@@ -17,7 +17,7 @@ const Home = props => {
 				<Switch>
 					<Route path="/chats" component={ContainerChats} />
 					<Route path="/log-out" component={LogOut} />
-					<Route path="/" component={Dash} />
+					<Route path="/" component={ContainerWisprs} />
 				</Switch>
 			</ActionCableProvider>
 		);

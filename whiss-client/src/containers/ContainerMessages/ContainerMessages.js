@@ -9,14 +9,21 @@ import PageMessages from './PageMessages';
 import FormNewMessage from '../../components/FormNewMessage/FormNewMessage';
 
 
-const ContainerMessages = ({match, dispatch, clearMessages}) => {
+const ContainerMessages = ({match, dispatch, clearMessages, chats}) => {
+	const chatId = match.params.id;
+	const chat = () => {
+		if (chats) {
+			return chats.filter(c => c.id === chatId);
+		} else {
+			return null;
+		}
+	}
 	
 	useEffect(() => {
 		return clearMessages;
 	},[]);
 
 	const sendMessage = content => {
-		const chatId = match.params.id
 		const message = {
 			chat_id: chatId,
 			content
@@ -25,14 +32,14 @@ const ContainerMessages = ({match, dispatch, clearMessages}) => {
 		messageChannel.current.send({type: "NEW_MESSAGE", payload: message });
 	}
 	const messageChannel = React.createRef();
-	const channel = {channel: "MessageChannel", chat_id: match.params.id};
+	const channel = {channel: "MessageChannel", chat_id: chatId};
 
 	return (
 		<ActionCableConsumer ref={messageChannel} channel={channel} onRejected={() => console.log("Rejected")} onReceived={dispatch}>
 			<section className="message-page">
 				<header>
 					<Nav><Link to="/chats">Chats</Link></Nav>
-					<HeaderTitle>{"Hi"}</HeaderTitle>
+					<HeaderTitle>{chat() ? chat.title : chatId}</HeaderTitle>
 				</header>
 				<PageMessages />
 				<FormNewMessage sendMessage={sendMessage}/>
@@ -41,9 +48,13 @@ const ContainerMessages = ({match, dispatch, clearMessages}) => {
 	);
 }
 
+const mapStateToProps = state => ({
+	chat: state.chats.chats
+});
+
 const mapDispatchToProps = dispatch => ({
 	dispatch,
 	clearMessages: () => dispatch(setMessages([]))
 });
 
-export default connect(null, mapDispatchToProps)(ContainerMessages);
+export default connect(mapStateToProps, mapDispatchToProps)(ContainerMessages);

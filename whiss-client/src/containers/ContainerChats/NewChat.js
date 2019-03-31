@@ -8,7 +8,7 @@ import HeaderTitle from '../../components/HeaderTitle/HeaderTitle';
 import ListUser from '../../components/ListUser/ListUser';
 
 
-const NewChat = ({users, fetchUsers}) =>  {
+const NewChat = ({users, fetchUsers, sendChat}) =>  {
 	useEffect(() => {
 		fetchUsers();
 	}, []);
@@ -18,7 +18,7 @@ const NewChat = ({users, fetchUsers}) =>  {
 				<Nav><Link to="/chats">Chats</Link></Nav>
 				<HeaderTitle>{"New Chat"}</HeaderTitle>
 			</header>
-			<ListUser/>
+			<ListUser sendChat={sendChat}/>
 			<FormSearch placeholder="Search for friends"/>
 		</section>
 	);

@@ -1,8 +1,8 @@
 import React from 'react';
 
-const ButtonStart = ({user}) =>  {
+const ButtonStart = ({user, ...rest}) =>  {
   return (
-  	<button>{user.username} - Start</button>
+  	<button {...rest} >{user.username} - Start</button>
   );
 }
 export default ButtonStart;
