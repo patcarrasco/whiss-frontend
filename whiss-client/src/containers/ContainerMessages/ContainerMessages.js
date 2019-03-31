@@ -22,13 +22,13 @@ const ContainerMessages = ({match, dispatch, clearMessages}) => {
 			content
 		};
 
-		messagesChannel.current.send({type: "NEW_MESSAGE", payload: message });
+		messageChannel.current.send({type: "NEW_MESSAGE", payload: message });
 	}
-	const messagesChannel = React.createRef();
-	const channel = {channel: "MessagesChannel", chat_id: match.params.id};
+	const messageChannel = React.createRef();
+	const channel = {channel: "MessageChannel", chat_id: match.params.id};
 
 	return (
-		<ActionCableConsumer ref={messagesChannel} channel={channel} onRejected={() => console.log("Rejected")} onReceived={dispatch}>
+		<ActionCableConsumer ref={messageChannel} channel={channel} onRejected={() => console.log("Rejected")} onReceived={dispatch}>
 			<section className="message-page">
 				<header>
 					<Nav><Link to="/chats">Chats</Link></Nav>

@@ -10,13 +10,13 @@ import NewChat from './NewChat';
 import ContainerMessages from '../ContainerMessages/ContainerMessages';
 
 const ContainerChats = ({dispatch}) => {
-	const chatsChannel = React.createRef();
-	const channel = {channel: "ChatsChannel"};
+	const chatChannel = React.createRef();
+	const channel = {channel: "ChatChannel"};
 	const sendChat = (chat = {members:[1,4], title: "How"}) => {
-		chatsChannel.current.send({type: "NEW_CHAT", payload: chat });
+		chatChannel.current.send({type: "NEW_CHAT", payload: chat });
 	}
 	return (
-		<ActionCableConsumer ref={chatsChannel} channel={channel} onReceived={dispatch}>
+		<ActionCableConsumer ref={chatChannel} channel={channel} onReceived={dispatch}>
 			<Switch>
 				<Route path="/chats/new" render={() => <NewChat sendChat={sendChat} />} />
 				<Route path="/chats/:id" component={ContainerMessages} />

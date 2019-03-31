@@ -1,23 +1,22 @@
 # Documentation
 
-function curry(b) {
-	return function a(c) {
-		return b * c;
-	}
-}
+## Reducer Functions
+### chatReducer
+- `"ADD_CHAT"`
+- `"SET_CHATS"`
+- `"UPDATE_CHAT"`
+- `"DELETE_CHAT`
 
-let multiplyBy8 = curry(8);
+### messageReducer
+- `"ADD_MESSAGE"`
+- `"SET_MESSAGES"`
+- `"DELETE_MESSAGE`
 
-multiplyBy8(4);
+### wisprReducer
+- `"ADD_WISPR"`
+- `"SET_WISPRS"`
+- `"DELETE_WISPR`
 
-<!-- 
-function curryFunc(a) {
-	return function(b) {
-		console.log(a*b)
-	}
-}
-
-
-let timesThree = curryFunc(3);
-
-timesThree(5); -->
+### appReducer
+- `"ERROR"`
+- `"SET_USERS"`
