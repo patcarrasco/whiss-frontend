@@ -9,7 +9,7 @@ import PageChats from './PageChats';
 import NewChat from './NewChat';
 import ContainerMessages from '../ContainerMessages/ContainerMessages';
 
-const ContainerChats = ({dispatch, history}) => {
+const ContainerChats = ({dispatch, history, setTerm}) => {
 	const chatChannel = React.createRef();
 	const channel = {channel: "ChatChannel"};
 	const sendChat = (chat) => {
@@ -36,8 +36,10 @@ const ContainerChats = ({dispatch, history}) => {
 	);
 }
 
+const mapStateToProps = state => ({
+});
 const mapDispatchToProps = dispatch => ({
 	dispatch
 });
 
-export default connect(null, mapDispatchToProps)(ContainerChats);
+export default connect(mapStateToProps, mapDispatchToProps)(ContainerChats);

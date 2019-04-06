@@ -3,23 +3,23 @@ import { connect } from 'react-redux';
 import { setFilterTerm } from '../../store';
 import Input from '../Input/Input';
 
-const FormSearch = ({filterTerm, setFilterTerm, placeholder}) => {
+const FormSearch = ({term, setTerm, placeholder}) => {
 	useEffect(()=> {
-		return () => setFilterTerm("");
+		return () => setTerm("");
 	},[]);
 	return (
 		<footer>
-			<form className="search-form">
-				<Input type="text" placeholder={placeholder} value={filterTerm} onChange={e => setFilterTerm(e.target.value)} />
+			<form className="search-form" onSubmit={e => e.preventDefault()}>
+				<Input type="text" placeholder={placeholder} value={term} onChange={e => setTerm(e.target.value)} />
 			</form>
 		</footer>
 	);
 }
+
 const mapStateToProps = state => ({
-	filterTerm: state.chats.filterTerm
+	term: state.chats.filterTerm
 });
 const mapDispatchToProps = dispatch => ({
-	setFilterTerm: term => dispatch(setFilterTerm(term))
+	setTerm: term => dispatch(setFilterTerm(term))
 });
-
 export default connect(mapStateToProps, mapDispatchToProps)(FormSearch);
